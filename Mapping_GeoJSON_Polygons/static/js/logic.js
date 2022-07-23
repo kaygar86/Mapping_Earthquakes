@@ -38,7 +38,14 @@ L.control.layers(baseMaps).addTo(map);
     d3.json(torontoHoods).then(function(data) {
       console.log(data);
     // Creating a GeoJSON layer with the retrieved data.
-    L.geoJSON(data).addTo(map);
+    data.features.forEach(function(item){
+    L.geoJSON(item, {
+      fillColor: 'yellow',
+      weight: 1
+    }).
+    bindPopup("<h2> Neighborhood: " + item.properties.AREA_NAME + "</br> " + "</h2> <hr> <h3>Destination: " + item.properties + "</h3>").
+    addTo(map);
+  })
   });
     
     // Then we add our 'graymap' tile layer to the map.
